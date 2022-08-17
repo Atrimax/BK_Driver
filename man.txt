@@ -1,0 +1,34 @@
+﻿Programming SCPI commands
+
+********************* BK Precision 9130C *********************************************************
+power supply 3 channels 
+ * all string closing must be with '\n'
+
+INST CH1|CH2|CH3            - select channel
+OUTP 1                      - Turn PS ON 
+OUTP 0						- Turn PS OFF
+SOUR:VOLT:LEV:IMM:AMPL 5    - Set voltage 1 channel to 5V
+SOUR:CURR:LEV:IMM:AMPL 1    - Set current 1 channel to 1A
+
+APP:VOLT 24,3,5				- Set all 3 channels to (24V, 3V, 5V) voltage
+APP:CURR 2,2,1              - Set all 3 channel to (2A, 2A, 1A) current
+APP:OUT 1,1,0				- Set all 3 channels to (ON, ON, OFF)
+INST CH1					- Set 1 channel for operational
+SOUR:CHAN:OUTP 1|0          - Power On/Off 1 channel
+INST?                       - Return selected channel for operational 
+
+MEAS:SCAL:VOLT:DC?			- Return voltage value
+MEAS:SCAL:CURR:DC?			- Return current value
+*IDN?						- Return of init string of BK PS
+
+SOUR:VOLT:PROT:LEV 23V      - Set voltage upper limit (23V)
+VOLT:PROT:STAT 1|0          - Set protection status OVP On/Off
+VOLT:PROT:STAT?             - Return status of OVP
+
+
+
+**************************************************************************************************
+
+************************** Keythley 2308 *********************************************************
+Battery simulator 1 channel
+
