@@ -1,3 +1,3 @@
 # BK_Driver
-SCPI command using to conntrol the BK Precision 9130C power supply<br />
-Read **man.txt** file with function description<br />
+Added SCPI commands for use to control the BK Precision 9130C power supply.<br />
+The **man.txt** file has a list of function names and description<br />
