@@ -36,13 +36,14 @@ namespace BK_Driver
         Ivi.Visa.Interop.ResourceManager rMgr = new ResourceManagerClass();//Create a resource manager
         FormattedIO488 src = new FormattedIO488Class();
 
-        public string sendstring; // strings
+        public string sendstring = string.Empty; // strings
         public string src_address = string.Empty;
 
         public BK_Main()
         {
             InitializeComponent();
             getAvailableResources();
+            
         }
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -71,8 +72,11 @@ namespace BK_Driver
         private void Cmd_Open_Click(object sender, EventArgs e)
         {
             comboBox1.Enabled = false;
-            txtSend.Enabled = true; Cmd_Read.Enabled = true;
-            txtRead.Enabled = true; Cmd_Write.Enabled = true; Cmd_ONOFF.Enabled = true;
+            txtSend.Enabled = true; 
+            Cmd_Read.Enabled = true;
+            txtRead.Enabled = true; 
+            Cmd_Write.Enabled = true; 
+            Cmd_ONOFF.Enabled = true;
 
             string srcAddress = src_address;
 
@@ -285,7 +289,8 @@ namespace BK_Driver
             System.Threading.Thread.Sleep(200);
             
             p_answer = src.ReadString();
-            BK_INIT = p_answer.Contains("800885011777110054");
+            //BK_INIT = p_answer.Contains("800885011777110054");
+            BK_INIT = p_answer.Contains("9130");
 
             return BK_INIT;
         }
@@ -319,6 +324,7 @@ namespace BK_Driver
             src.WriteString(sendstring);
         }
 
+        //SCPI command console mode
         private void TxtSend_KeyPress(object sender, KeyPressEventArgs e)
         {
             if(e.KeyChar == 13)
@@ -328,6 +334,8 @@ namespace BK_Driver
             }
         }
 
+        // set channel 2 to 10 volts
+        // turn channel 2 ON
         private void Cmd_ONOFF_Click(object sender, EventArgs e)
         {
             //sendstring = "SYST:VERS?"+"\n";

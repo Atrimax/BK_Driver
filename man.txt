@@ -24,11 +24,6 @@ MEAS:SCAL:CURR:DC?			- Return current value
 SOUR:VOLT:PROT:LEV 23V      - Set voltage upper limit (23V)
 VOLT:PROT:STAT 1|0          - Set protection status OVP On/Off
 VOLT:PROT:STAT?             - Return status of OVP
-
-
-
 **************************************************************************************************
 
-************************** Keythley 2308 *********************************************************
-Battery simulator 1 channel
 
