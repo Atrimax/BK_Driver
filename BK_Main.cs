@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using Ivi.Visa;
 using NationalInstruments.Visa;
 using Ivi.Visa.Interop;
+using System.Runtime.InteropServices;
 
 /*****************************  SCN20 ATE TEST STATION *****************************
  * BK 9130C Driver 
@@ -25,6 +26,8 @@ using Ivi.Visa.Interop;
  *  6. Measure Current           - float Meas_Current(int Channel)
  *  7. Setup Voltage by channel  - void Setup_Voltage(int Channel, string Voltage)
  *  8. Setup Current by channel  - void Setup_Current(int Channel, string Current)
+ *  9. Clear all registers       - void BK_Clear()
+ *  10. Reset PS                 - void BK_Reset()
  *  
  *  
  * ********************************************************************************* 
@@ -294,6 +297,24 @@ namespace BK_Driver
 
             return BK_INIT;
         }
+        //SCPI "*CLS" commands clear registers of BK PS
+        private void BK_Clear()
+        {
+            string p_answer = string.Empty;
+            
+            src.WriteString("*CLS\n");
+            System.Threading.Thread.Sleep(200);
+        }
+        //This command resets the power supply
+        private void BK_Reset()
+        {
+            string p_answer = string.Empty;
+
+            src.WriteString("*RST\n");
+            System.Threading.Thread.Sleep(200);
+        }
+
+        // TURN ON/OFF each channel separatly
         private void Turn_ONOFF_EACH(bool ON_OFF, int Channel)
         {
             string b_command = string.Empty;
