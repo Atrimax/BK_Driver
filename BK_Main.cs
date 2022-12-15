@@ -12,6 +12,7 @@ using Ivi.Visa;
 using NationalInstruments.Visa;
 using Ivi.Visa.Interop;
 using System.Runtime.InteropServices;
+using static System.Windows.Forms.AxHost;
 
 /*****************************  SCN20 ATE TEST STATION *****************************
  * BK 9130C Driver 
@@ -70,6 +71,7 @@ namespace BK_Driver
         }
         private void Cmd_Exit_Click(object sender, EventArgs e)
         {
+            this.Dispose();
             Application.Exit();
         }
         private void Cmd_Open_Click(object sender, EventArgs e)
@@ -248,6 +250,7 @@ namespace BK_Driver
             System.Threading.Thread.Sleep(200);
             b_command = "MEAS:SCAL:VOLT:DC?\n";
             src.WriteString(b_command);
+
             System.Threading.Thread.Sleep(200);
             Meas_Voltage = float.Parse(src.ReadString());
 
@@ -273,9 +276,11 @@ namespace BK_Driver
                     break;
             }
             src.WriteString(b_command);
+
             System.Threading.Thread.Sleep(200);
             b_command = "MEAS:SCAL:CURR:DC?\n";
             src.WriteString(b_command);
+
             System.Threading.Thread.Sleep(200);
             Meas_Current = float.Parse(src.ReadString());
 
@@ -353,6 +358,33 @@ namespace BK_Driver
                 sendstring = txtSend.Text+"\n";
                 Cmd_Write.Focus();
             }
+        }
+
+        private int OutputChannelStatus(int Channel)
+        {
+            int outstatus = 0;
+            string b_command = string.Empty;
+            switch (Channel)
+            {
+                case 1:
+                    b_command = "INST CH1\n";
+                    break;
+                case 2:
+                    b_command = "INST CH2\n";
+                    break;
+                case 3:
+                    b_command = "INST CH3\n";
+                    break;
+            }
+            src.WriteString(b_command);
+            System.Threading.Thread.Sleep(200);
+
+            sendstring = "SOUR:CHAN:OUTP:STAT?";
+            src.WriteString(sendstring);
+            System.Threading.Thread.Sleep(200);
+            outstatus = int.Parse(src.ReadString());
+
+            return outstatus;
         }
 
         // set channel 2 to 10 volts
