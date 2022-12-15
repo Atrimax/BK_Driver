@@ -13,6 +13,7 @@ using NationalInstruments.Visa;
 using Ivi.Visa.Interop;
 using System.Runtime.InteropServices;
 using static System.Windows.Forms.AxHost;
+using System.Runtime.Remoting.Channels;
 
 /*****************************  SCN20 ATE TEST STATION *****************************
  * BK 9130C Driver 
@@ -397,6 +398,10 @@ namespace BK_Driver
             Setup_Voltage(2, "10");
             //Turn_ONOFF(true, 1);
             Turn_ONOFF_EACH(true, 2);
+            int stflag = OutputChannelStatus(2);
+
+            txtRead.Text = "status of channel 2 is : " + stflag.ToString() + "\n";
+
             //float gt = Meas_Voltage(1);
             //bool ts = BK_Init();
         }
